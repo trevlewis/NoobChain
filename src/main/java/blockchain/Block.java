@@ -1,4 +1,6 @@
-package main.java;
+package main.java.blockchain;
+
+import main.java.util.StringUtil;
 
 import java.util.Date;
 
@@ -30,7 +32,6 @@ public class Block {
     }
 
     public void mineBlock(int difficulty) {
-
         // Create a string with difficulty * "0"
         String target = StringUtil.getDificultyString(difficulty);
 
@@ -40,4 +41,5 @@ public class Block {
         }
         System.out.println("Block Mined!!!!: " + hash);
     }
+
 }

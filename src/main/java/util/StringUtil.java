@@ -1,4 +1,4 @@
-package main.java;
+package main.java.util;
 
 import com.google.gson.GsonBuilder;
 
@@ -29,7 +29,6 @@ public class StringUtil {
 
     //Short hand helper to turn Object into a json string
     public static String getJson(Object o) {
-
         return new GsonBuilder().setPrettyPrinting().create().toJson(o);
     }
 

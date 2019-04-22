@@ -1,6 +1,7 @@
 package main.java;
 
-import com.google.gson.GsonBuilder;
+import main.java.blockchain.Block;
+import main.java.util.StringUtil;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -21,10 +22,10 @@ public class NoobChain {
         addBlock(new Block("Hi im the first block", "0"));
 
         System.out.println("Trying to Mine block 2... ");
-        addBlock(new Block("Yo im the second block",blockchain.get(blockchain.size()-1).hash));
+        addBlock(new Block("Yo im the second block", blockchain.get(blockchain.size()-1).hash));
 
         System.out.println("Trying to Mine block 3... ");
-        addBlock(new Block("Hey im the third block",blockchain.get(blockchain.size()-1).hash));
+        addBlock(new Block("Hey im the third block", blockchain.get(blockchain.size()-1).hash));
         Instant finish = Instant.now();
 
         long timeElapsed = Duration.between(start, finish).toMillis();
@@ -60,7 +61,7 @@ public class NoobChain {
             }
 
             //check if hash is solved
-            if(!currentBlock.hash.substring( 0, difficulty).equals(hashTarget)) {
+            if(!currentBlock.hash.substring(0, difficulty).equals(hashTarget)) {
                 System.out.println("This block hasn't been mined");
                 return false;
             }
