@@ -9,9 +9,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Wallet {
-    // will sign our transactions
+    // Sign our transactions.
     public PrivateKey privateKey;
-    // will act as our address
+    // Our address
     public PublicKey publicKey;
 
     // Only UTXOs owned by this wallet.
@@ -27,11 +27,11 @@ public class Wallet {
             SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
             ECGenParameterSpec ecSpec = new ECGenParameterSpec("prime192v1");
 
-            // Initialize the key generator and generate a KeyPair
-            keyGen.initialize(ecSpec, random); // 256 bytes provides an acceptable security level
+            // Initialize the key generator and generate a KeyPair.
+            keyGen.initialize(ecSpec, random); // 256 bytes provides an acceptable security level.
             KeyPair keyPair = keyGen.generateKeyPair();
 
-            // Set the public and private keys from the keyPair
+            // Set the public and private keys from the keyPair.
             privateKey = keyPair.getPrivate();
             publicKey = keyPair.getPublic();
 
@@ -40,13 +40,13 @@ public class Wallet {
         }
     }
 
-    // Returns balance and stores the UTXO's owned vy this wallet in this.UTXOs
+    // Returns balance and stores the UTXO's owned vy this wallet in this.UTXOs.
     public float getBalance() {
         float total = 0;
         for (Map.Entry<String, TransactionOutput> item : NoobChain.UTXOs.entrySet()) {
             TransactionOutput UTXO = item.getValue();
 
-            // If output belongs to me (if coins belong to me)
+            // If output (coins) belongs to me.
             if (UTXO.isMine(publicKey)) {
                 // Add it to our list of unspent transactions.
                 UTXOs.put(UTXO.id, UTXO);
@@ -64,7 +64,7 @@ public class Wallet {
             return null;
         }
 
-        // Create array list of inputs
+        // Create array list of inputs.
         ArrayList<TransactionInput> inputs = new ArrayList<>();
 
         float total = 0;
@@ -84,9 +84,8 @@ public class Wallet {
         for (TransactionInput input : inputs) {
             UTXOs.remove(input.transactionOutputId);
         }
-
         return newTransaction;
     }
 
-    // Keep history of transactions
+    // TODO: Keep history of transactions
 }

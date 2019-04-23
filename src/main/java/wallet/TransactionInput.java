@@ -3,7 +3,7 @@ package main.java.wallet;
 public class TransactionInput {
     // Reference to TransactionOutput -> transactionId
     public String transactionOutputId;
-    // Contains the Unspent transaction output
+    // Contains the unspent transaction output.
     public TransactionOutput UTXO;
 
     public TransactionInput(String transactionOutputId) {

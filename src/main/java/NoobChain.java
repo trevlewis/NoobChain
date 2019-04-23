@@ -16,14 +16,15 @@ import java.util.HashMap;
  */
 public class NoobChain {
 
-    public static ArrayList<Block> blockchain = new ArrayList<>();
     //list of all unspent transactions.
     public static HashMap<String, TransactionOutput> UTXOs = new HashMap<>();
-    public static int difficulty = 3;
     public static float minimumTransaction = 0.1f;
-    public static Wallet walletA;
-    public static Wallet walletB;
-    public static Transaction genesisTransaction;
+
+    private static ArrayList<Block> blockchain = new ArrayList<>();
+    private static int difficulty = 3;
+    private static Wallet walletA;
+    private static Wallet walletB;
+    private static Transaction genesisTransaction;
 
     public static void main(String[] args) {
 
@@ -42,7 +43,7 @@ public class NoobChain {
         // Manually set the transaction id.
         genesisTransaction.transactionId = "0";
         // Manually add the Transactions Output.
-        genesisTransaction.outputs.add(new TransactionOutput(genesisTransaction.reciepient, genesisTransaction.value, genesisTransaction.transactionId));
+        genesisTransaction.outputs.add(new TransactionOutput(genesisTransaction.recipient, genesisTransaction.value, genesisTransaction.transactionId));
         // It's important to store our first transaction in the UTXOs list.
         UTXOs.put(genesisTransaction.outputs.get(0).id, genesisTransaction.outputs.get(0));
 
@@ -76,7 +77,7 @@ public class NoobChain {
         isChainValid();
     }
 
-    public static Boolean isChainValid() {
+    private static Boolean isChainValid() {
         Block currentBlock;
         Block previousBlock;
         String hashTarget = new String(new char[difficulty]).replace('\0', '0');
@@ -110,7 +111,7 @@ public class NoobChain {
             for (int t = 0; t < currentBlock.transactions.size(); t++) {
                 Transaction currentTransaction = currentBlock.transactions.get(t);
 
-                if (!currentTransaction.verifiySignature()) {
+                if (!currentTransaction.verifySignature()) {
                     System.out.println("#Signature on Transaction(" + t + ") is Invalid");
                     return false;
                 }
@@ -139,7 +140,7 @@ public class NoobChain {
                     tempUTXOs.put(output.id, output);
                 }
 
-                if (currentTransaction.outputs.get(0).reciepient != currentTransaction.reciepient) {
+                if (currentTransaction.outputs.get(0).reciepient != currentTransaction.recipient) {
                     System.out.println("#Transaction(" + t + ") output reciepient is not who it should be");
                     return false;
                 }
@@ -153,7 +154,7 @@ public class NoobChain {
         return true;
     }
 
-    public static void addBlock(Block newBlock) {
+    private static void addBlock(Block newBlock) {
         newBlock.mineBlock(difficulty);
         blockchain.add(newBlock);
     }
